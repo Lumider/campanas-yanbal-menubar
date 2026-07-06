@@ -1,0 +1,6 @@
+# Artefactos de compilación Swift / SPM
+.build/
+build/
+.swiftpm/
+*.xcodeproj
+DerivedData/
