@@ -85,3 +85,7 @@ Resources/Info.plist                  LSUIElement (sin Dock), id y versión
 build.sh                              Compila y arma el .app
 CALENDARIO.md                         Reglas y fechas del calendario campañal Yanbal
 ```
+
+## Versión para iPhone (widget)
+
+El widget de iOS vive en un repositorio aparte: **`campanas-yanbal-ios`**.
