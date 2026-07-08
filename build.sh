@@ -31,6 +31,12 @@ mkdir -p "${APP_BUNDLE}/Contents/Resources"
 cp "${BIN_PATH}" "${APP_BUNDLE}/Contents/MacOS/${APP_NAME}"
 cp "Resources/Info.plist" "${APP_BUNDLE}/Contents/Info.plist"
 
+# Copiar los bundles de recursos que genera SPM (el isotipo de la barra, etc.)
+# junto al binario; asi Bundle.module los encuentra dentro del .app empaquetado.
+for b in "${BIN_DIR}"/*.bundle; do
+  [ -e "$b" ] && cp -R "$b" "${APP_BUNDLE}/Contents/MacOS/"
+done
+
 echo "OK - Listo: ${APP_BUNDLE}"
 echo "     Instalalo arrastrandolo a /Applications."
 

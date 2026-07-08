@@ -17,7 +17,10 @@ let package = Package(
     .executableTarget(
       name: "YanbalCampanas",
       dependencies: ["CampaignKit"],
-      path: "Sources/YanbalCampanas"
+      path: "Sources/YanbalCampanas",
+      // El isotipo de la barra de menú se empaqueta como recurso del target,
+      // accesible en tiempo de ejecución vía Bundle.module (Xcode, swift run y .app).
+      resources: [.process("Resources")]
     ),
     .testTarget(
       name: "CampaignKitTests",

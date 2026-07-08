@@ -43,11 +43,40 @@ final class CalendarModel: ObservableObject {
 struct YanbalCampanasApp: App {
   @StateObject private var modelo = CalendarModel()
 
+  // Isotipo de Yanbal para la barra de menú. Se carga una sola vez desde los
+  // recursos del paquete y se dimensiona a la altura típica de la barra (18 pt).
+  // Es opcional: si el recurso falta, la barra sigue mostrando solo el texto.
+  private static let iconoBarra: NSImage? = {
+    let nombres = ["MenuBarLogo"]
+    let extensiones = ["pdf", "png"]
+    for nombre in nombres {
+      for ext in extensiones {
+        if let url = Bundle.module.url(forResource: nombre, withExtension: ext),
+           let img = NSImage(contentsOf: url) {
+          let alto: CGFloat = 18
+          let ratio = img.size.width / max(img.size.height, 1)
+          img.size = NSSize(width: alto * ratio, height: alto)
+          // Monocromo que se adapta a barra clara/oscura (estándar de macOS).
+          // Para mostrar el logo a color: comentar la línea siguiente.
+          img.isTemplate = true
+          return img
+        }
+      }
+    }
+    return nil
+  }()
+
   var body: some Scene {
-    // El título de la barra es la etiqueta compacta ("C7 · S3"); si la fecha cae
-    // fuera del calendario conocido, se muestra un guion.
-    MenuBarExtra(modelo.snapshot?.etiquetaBarra ?? "C— · S—") {
+    // La etiqueta combina el isotipo de Yanbal con el texto compacto ("C7 · S3").
+    // Si la fecha cae fuera del calendario conocido, el texto muestra un guion.
+    MenuBarExtra {
       PanelView(snapshot: modelo.snapshot)
+    } label: {
+      if let icono = Self.iconoBarra {
+        Image(nsImage: icono)
+          .renderingMode(.template)
+      }
+      Text(modelo.snapshot?.etiquetaBarra ?? "C— · S—")
     }
     .menuBarExtraStyle(.window)
   }
