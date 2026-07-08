@@ -6,27 +6,40 @@ endobj
 << /Type /Pages /Kids [3 0 R] /Count 1 >>
 endobj
 3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 64 64] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 69 69] /Contents 4 0 R /Resources << >> >>
 endobj
 4 0 obj
-<< /Length 31 >>
+<< /Length 341 >>
 stream
-BT /F1 56 Tf 16 12 Td (Y) Tj ET
+0 0 0 rg
+5.7144 61.3946 m
+17.1128 61.3946 l
+38.6946 30.9463 l
+38.6946 7.5714 l
+29.4253 7.5714 l
+29.5759 28.5631 l
+5.7144 61.3946 l
+h
+42.0335 33.2534 m
+41.5765 35.0979 41.3507 37.1002 41.3507 39.0971 c
+41.3507 50.9369 48.8726 61.8571 60.5775 61.8571 c
+61.2604 61.8571 62.4755 61.7810 62.8572 61.7048 c
+42.0389 33.2534 l
+42.0335 33.2534 l
+h
+f
+
 endstream
 endobj
-5 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
-endobj
 xref
-0 6
+0 5
 0000000000 65535 f 
 0000000009 00000 n 
 0000000058 00000 n 
 0000000115 00000 n 
-0000000239 00000 n 
-0000000320 00000 n 
+0000000217 00000 n 
 trailer
-<< /Size 6 /Root 1 0 R >>
+<< /Size 5 /Root 1 0 R >>
 startxref
-395
+609
 %%EOF
