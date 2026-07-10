@@ -44,11 +44,30 @@ struct YanbalCampanasApp: App {
   @StateObject private var modelo = CalendarModel()
 
   var body: some Scene {
-    // El título de la barra es la etiqueta compacta ("C7 · S3"); si la fecha cae
-    // fuera del calendario conocido, se muestra un guion.
-    MenuBarExtra(modelo.snapshot?.etiquetaBarra ?? "C— · S—") {
+    // La barra muestra el iso de Yanbal + la etiqueta compacta ("C7 · S3");
+    // si la fecha cae fuera del calendario conocido, se muestra un guion.
+    MenuBarExtra {
       PanelView(snapshot: modelo.snapshot)
+    } label: {
+      BarraLabel(texto: modelo.snapshot?.etiquetaBarra ?? "C— · S—")
     }
     .menuBarExtraStyle(.window)
+  }
+}
+
+/// Contenido de la barra de menú: iso de Yanbal + "C7 · S3".
+///
+/// Parámetros acordados: iso a ~13 px, 4 px de separación con el texto, antes del
+/// texto. Nota de macOS: en la barra el ícono suele renderizarse monocromo (toma
+/// el color del texto), no en naranja; el naranja de marca se conserva en el panel.
+private struct BarraLabel: View {
+  let texto: String
+
+  var body: some View {
+    HStack(spacing: 4) {
+      YanbalIso()
+        .frame(width: 13, height: 12)
+      Text(texto)
+    }
   }
 }
