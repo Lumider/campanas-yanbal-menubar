@@ -40,8 +40,7 @@ struct PanelView: View {
       HStack(alignment: .top, spacing: 10) {
         YanbalIso()
           .fill(.primary)
-          .frame(width: 20, height: 19)
-          .padding(.top, 2)
+          .frame(width: 34, height: 34)
         VStack(alignment: .leading, spacing: 4) {
           Text("Campaña \(snap.campana.etiqueta) · Semana \(snap.semana) de \(snap.campana.totalSemanas)")
             .font(.headline)
