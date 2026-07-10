@@ -19,9 +19,9 @@ enum YanbalIsoImage {
     let key = "\(height)"
     if let img = cache[key] { return img }
     let renderer = ImageRenderer(
-      content: YanbalIso()
+      content: YanbalIsoBar()
         .fill(.black)
-        .frame(width: height * YanbalIso.aspect, height: height)
+        .frame(width: height * YanbalIsoBar.aspect, height: height)
     )
     renderer.scale = 3  // nítido en pantallas Retina
     let img = renderer.nsImage ?? NSImage()
