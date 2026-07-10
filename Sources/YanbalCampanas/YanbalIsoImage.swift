@@ -13,20 +13,14 @@ import SwiftUI
 enum YanbalIsoImage {
   private static var cache: [String: NSImage] = [:]
 
-  /// - Parameters:
-  ///   - height: alto del iso en puntos.
-  ///   - trailingGap: separación a la derecha, **horneada** como margen transparente
-  ///     dentro de la imagen. La barra de menú de macOS ignora el `spacing` del HStack,
-  ///     así que el gap debe ir aquí para que se respete.
-  static func template(height: CGFloat, trailingGap: CGFloat = 0) -> NSImage {
-    let key = "\(height)-\(trailingGap)"
+  /// Renderiza el iso al ancho y alto indicados (en puntos).
+  static func template(width: CGFloat, height: CGFloat) -> NSImage {
+    let key = "\(width)-\(height)"
     if let img = cache[key] { return img }
-    let aspect: CGFloat = 58.0 / 55.0  // proporción del viewBox del SVG
     let renderer = ImageRenderer(
       content: YanbalIso()
         .fill(.black)
-        .frame(width: height * aspect, height: height)
-        .padding(.trailing, trailingGap)
+        .frame(width: width, height: height)
     )
     renderer.scale = 3  // nítido en pantallas Retina
     let img = renderer.nsImage ?? NSImage()
