@@ -2,43 +2,46 @@ import SwiftUI
 
 /// Isotipo (símbolo "Y") de Yanbal como `Shape` nativo de SwiftUI.
 ///
-/// Trazado extraído de `public/brand/iso-yanbal.svg` (viewBox 51 52.5 58 55).
-/// Al ser vectorial se ve nítido a cualquier tamaño y toma el color con `.fill(...)`;
-/// sirve igual en la barra de menú (macOS), en el widget y en la app (iOS), y en
-/// modo claro/oscuro. Se escala manteniendo proporción y centrado en su rect.
+/// Trazado del SVG oficial entregado por diseño (viewBox `0 0 11 8`). El `viewBox`
+/// incluye a propósito **espacio vacío a la derecha** de la Y (la figura llega hasta
+/// x≈7.67 de 11), que sirve como separación horneada frente a "C7 · S3" en la barra.
+/// Al ser vectorial se ve nítido a cualquier tamaño y toma el color con `.fill(...)`.
+/// Se escala manteniendo proporción y centrado en su rect.
 public struct YanbalIso: Shape {
   public init() {}
 
+  /// Proporción del viewBox (ancho/alto), útil para enmarcarlo sin deformar.
+  public static let aspect: CGFloat = 11.0 / 8.0
+
   public func path(in rect: CGRect) -> Path {
-    // viewBox original del SVG.
-    let vbX: CGFloat = 51, vbY: CGFloat = 52.5, vbW: CGFloat = 58, vbH: CGFloat = 55
+    let vbW: CGFloat = 11, vbH: CGFloat = 8
     let scale = min(rect.width / vbW, rect.height / vbH)
     let offX = rect.minX + (rect.width - vbW * scale) / 2
     let offY = rect.minY + (rect.height - vbH * scale) / 2
 
     func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
-      CGPoint(x: offX + (x - vbX) * scale, y: offY + (y - vbY) * scale)
+      CGPoint(x: offX + x * scale, y: offY + y * scale)
     }
 
     var path = Path()
 
     // Trazo diagonal (asta de la "Y").
-    path.move(to: p(51.4287, 53.3195))
-    path.addLine(to: p(62.8272, 53.3195))
-    path.addLine(to: p(84.409, 83.7679))
-    path.addLine(to: p(84.409, 107.143))
-    path.addLine(to: p(75.1397, 107.143))
-    path.addLine(to: p(75.2902, 86.1511))
-    path.addLine(to: p(51.4287, 53.3195))
+    path.move(to: p(1.16931, 0.864588))
+    path.addLine(to: p(2.4651, 0.864588))
+    path.addLine(to: p(4.91854, 4.32599))
+    path.addLine(to: p(4.91854, 6.98327))
+    path.addLine(to: p(3.8648, 6.98327))
+    path.addLine(to: p(3.88191, 4.59691))
+    path.addLine(to: p(1.16931, 0.864588))
     path.closeSubpath()
 
     // Brazo curvo superior.
-    path.move(to: p(87.7479, 81.4608))
-    path.addCurve(to: p(87.065, 75.6171), control1: p(87.2909, 79.6163), control2: p(87.065, 77.614))
-    path.addCurve(to: p(106.292, 52.8571), control1: p(87.065, 63.7773), control2: p(94.5869, 52.8571))
-    path.addCurve(to: p(108.572, 53.0094), control1: p(106.975, 52.8571), control2: p(108.19, 52.9332))
-    path.addLine(to: p(87.7532, 81.4608))
-    path.addLine(to: p(87.7479, 81.4608))
+    path.move(to: p(5.29811, 4.06372))
+    path.addCurve(to: p(5.22049, 3.3994), control1: p(5.24616, 3.85403), control2: p(5.22049, 3.62641))
+    path.addCurve(to: p(7.40622, 0.812012), control1: p(5.22049, 2.05344), control2: p(6.07559, 0.812012))
+    path.addCurve(to: p(7.66537, 0.829331), control1: p(7.48384, 0.812012), control2: p(7.62198, 0.820671))
+    path.addLine(to: p(5.29872, 4.06372))
+    path.addLine(to: p(5.29811, 4.06372))
     path.closeSubpath()
 
     return path
