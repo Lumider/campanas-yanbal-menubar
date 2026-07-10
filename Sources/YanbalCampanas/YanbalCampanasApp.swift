@@ -58,13 +58,14 @@ struct YanbalCampanasApp: App {
 /// Contenido de la barra de menú: iso de Yanbal + "C7 · S3".
 ///
 /// La Y se dibuja como imagen de plantilla (ver YanbalIsoImage), así macOS la pinta
-/// monocroma según el tema. Sin gap; iso a 8 px de ancho × 11 px de alto.
+/// monocroma según el tema. Alto 11 px (ancho proporcional) y 12 px de margen
+/// horneado a la derecha para separarla de "C7 · S3".
 private struct BarraLabel: View {
   let texto: String
 
   var body: some View {
     HStack(spacing: 0) {
-      Image(nsImage: YanbalIsoImage.template(width: 8, height: 11))
+      Image(nsImage: YanbalIsoImage.template(height: 11, trailingGap: 12))
       Text(texto)
     }
   }
