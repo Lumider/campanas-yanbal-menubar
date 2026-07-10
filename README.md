@@ -40,6 +40,19 @@ Para que arranque sola al iniciar sesión: **Ajustes del Sistema → General →
 > **Ajustes del Sistema → Privacidad y seguridad → “Abrir de todos modos”**, o bien
 > clic derecho sobre la app → **Abrir**.
 
+### Crear un instalador .dmg
+
+Para tener el clásico instalador de Mac (arrastrar la app a Aplicaciones), sin
+instalar nada extra:
+
+```bash
+./make-dmg.sh
+```
+
+Genera `build/Campanas Yanbal.dmg`. Ábrelo con doble clic y arrastra la app sobre
+la carpeta **Aplicaciones** que aparece. (Sigue siendo una app sin firmar, así que
+la primera vez aplica la misma nota de Gatekeeper de arriba.)
+
 ### Modo desarrollo rápido
 
 ```bash
@@ -77,12 +90,14 @@ ancla del año siguiente, la C13 se asume de 4 semanas.
 Package.swift                         Paquete Swift (librería + ejecutable, macOS 13+)
 Sources/CampaignKit/
   CampaignCalendar.swift              Motor de cálculo (anclas + aritmética, Foundation puro)
+  YanbalIso.swift                     Isotipo "Y" de Yanbal como Shape SwiftUI
 Sources/YanbalCampanas/
   YanbalCampanasApp.swift             @main + escena MenuBarExtra + refresco
-  PanelView.swift                     UI del popover
+  PanelView.swift                     UI del popover (con el iso de Yanbal)
 Tests/CampaignKitTests/               Pruebas del motor (bordes de año, C13 extendida)
 Resources/Info.plist                  LSUIElement (sin Dock), id y versión
 build.sh                              Compila y arma el .app
+make-dmg.sh                           Crea el instalador .dmg
 CALENDARIO.md                         Reglas y fechas del calendario campañal Yanbal
 ```
 

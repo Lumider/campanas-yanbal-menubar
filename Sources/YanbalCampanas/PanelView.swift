@@ -35,13 +35,19 @@ struct PanelView: View {
   @ViewBuilder
   private func contenido(_ snap: CampaignSnapshot) -> some View {
     VStack(alignment: .leading, spacing: 14) {
-      // Campaña + semana actual.
-      VStack(alignment: .leading, spacing: 4) {
-        Text("Campaña \(snap.campana.etiqueta) · Semana \(snap.semana) de \(snap.campana.totalSemanas)")
-          .font(.headline)
-        Text(CampaignCalendar.rango(snap.campana))
-          .font(.subheadline)
-          .foregroundStyle(.secondary)
+      // Campaña + semana actual, con el iso de Yanbal como marca.
+      HStack(alignment: .top, spacing: 10) {
+        YanbalIso()
+          .fill(brand)
+          .frame(width: 20, height: 19)
+          .padding(.top, 2)
+        VStack(alignment: .leading, spacing: 4) {
+          Text("Campaña \(snap.campana.etiqueta) · Semana \(snap.semana) de \(snap.campana.totalSemanas)")
+            .font(.headline)
+          Text(CampaignCalendar.rango(snap.campana))
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+        }
       }
 
       // Línea de urgencia: cierre siempre en viernes.
