@@ -36,9 +36,10 @@ struct PanelView: View {
   private func contenido(_ snap: CampaignSnapshot) -> some View {
     VStack(alignment: .leading, spacing: 14) {
       // Campaña + semana actual, con el iso de Yanbal como marca.
+      // Monocromo (color del texto), igual que el estilo de la barra de macOS.
       HStack(alignment: .top, spacing: 10) {
         YanbalIso()
-          .fill(brand)
+          .fill(.primary)
           .frame(width: 20, height: 19)
           .padding(.top, 2)
         VStack(alignment: .leading, spacing: 4) {
