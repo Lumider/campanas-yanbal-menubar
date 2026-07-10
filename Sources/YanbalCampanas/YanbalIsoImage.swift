@@ -11,20 +11,27 @@ import SwiftUI
 /// desde el mismo `YanbalIso`, así que la forma es idéntica a la del panel.
 @MainActor
 enum YanbalIsoImage {
-  private static var cache: [CGFloat: NSImage] = [:]
+  private static var cache: [String: NSImage] = [:]
 
-  static func template(height: CGFloat) -> NSImage {
-    if let img = cache[height] { return img }
+  /// - Parameters:
+  ///   - height: alto del iso en puntos.
+  ///   - trailingGap: separación a la derecha, **horneada** como margen transparente
+  ///     dentro de la imagen. La barra de menú de macOS ignora el `spacing` del HStack,
+  ///     así que el gap debe ir aquí para que se respete.
+  static func template(height: CGFloat, trailingGap: CGFloat = 0) -> NSImage {
+    let key = "\(height)-\(trailingGap)"
+    if let img = cache[key] { return img }
     let aspect: CGFloat = 58.0 / 55.0  // proporción del viewBox del SVG
     let renderer = ImageRenderer(
       content: YanbalIso()
         .fill(.black)
         .frame(width: height * aspect, height: height)
+        .padding(.trailing, trailingGap)
     )
     renderer.scale = 3  // nítido en pantallas Retina
     let img = renderer.nsImage ?? NSImage()
     img.isTemplate = true
-    cache[height] = img
+    cache[key] = img
     return img
   }
 }
