@@ -96,6 +96,7 @@ Sources/YanbalCampanas/
   PanelView.swift                     UI del popover (con el iso de Yanbal)
 Tests/CampaignKitTests/               Pruebas del motor (bordes de año, C13 extendida)
 Resources/Info.plist                  LSUIElement (sin Dock), id y versión
+Resources/AppIcon.iconset/            Ícono de la app (Y sobre naranja); build.sh lo compila a .icns
 build.sh                              Compila y arma el .app
 make-dmg.sh                           Crea el instalador .dmg
 CALENDARIO.md                         Reglas y fechas del calendario campañal Yanbal

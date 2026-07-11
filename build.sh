@@ -31,6 +31,12 @@ mkdir -p "${APP_BUNDLE}/Contents/Resources"
 cp "${BIN_PATH}" "${APP_BUNDLE}/Contents/MacOS/${APP_NAME}"
 cp "Resources/Info.plist" "${APP_BUNDLE}/Contents/Info.plist"
 
+# Icono de la app (la Y sobre naranja): compila el iconset a .icns con iconutil
+# (incluido en macOS) y lo copia al bundle. Referenciado como CFBundleIconFile.
+echo "==> Generando icono (AppIcon.icns)..."
+iconutil -c icns "Resources/AppIcon.iconset" -o "${BUILD_DIR}/AppIcon.icns"
+cp "${BUILD_DIR}/AppIcon.icns" "${APP_BUNDLE}/Contents/Resources/AppIcon.icns"
+
 echo "OK - Listo: ${APP_BUNDLE}"
 echo "     Instalalo arrastrandolo a /Applications."
 
