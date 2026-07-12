@@ -100,7 +100,11 @@ enum Notificador {
   static func probar() {
     guard Bundle.main.bundleIdentifier != nil else { return }
     let centro = UNUserNotificationCenter.current()
-    centro.requestAuthorization(options: [.alert, .sound]) { autorizado, _ in
+    centro.requestAuthorization(options: [.alert, .sound]) { autorizado, error in
+      // Visible en Consola.app filtrando "YanbalCampanas": ayuda a diagnosticar
+      // permisos denegados o firmas rechazadas.
+      if let error { NSLog("YanbalCampanas notificaciones: \(error.localizedDescription)") }
+      NSLog("YanbalCampanas notificaciones autorizado=\(autorizado)")
       guard autorizado else { return }
       let contenido = UNMutableNotificationContent()
       contenido.title = "Cierre de facturación C7 — en 2 días"

@@ -37,6 +37,12 @@ echo "==> Generando icono (AppIcon.icns)..."
 iconutil -c icns "Resources/AppIcon.iconset" -o "${BUILD_DIR}/AppIcon.icns"
 cp "${BUILD_DIR}/AppIcon.icns" "${APP_BUNDLE}/Contents/Resources/AppIcon.icns"
 
+# Firma ad-hoc (identidad local, sin cuenta de developer). Sin firma, macOS
+# rechaza el registro en el centro de notificaciones: no aparece ni el prompt
+# de permiso. Con la firma ad-hoc las notificaciones locales funcionan.
+echo "==> Firmando (ad-hoc)..."
+codesign --force --deep --sign - "${APP_BUNDLE}"
+
 echo "OK - Listo: ${APP_BUNDLE}"
 echo "     Instalalo arrastrandolo a /Applications."
 
