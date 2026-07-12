@@ -60,6 +60,34 @@ swift run       # ejecuta sin empaquetar el .app
 swift test      # corre las pruebas del motor de cálculo
 ```
 
+## Fechas importantes y notificaciones (avisos remotos)
+
+La app muestra una sección **"Fechas importantes"** en el panel y manda
+**notificaciones de macOS**. Los avisos viven en [`fechas.json`](fechas.json)
+en la rama `main`: **publicar un aviso = editar ese archivo en GitHub** (desde el
+navegador). Todas las apps instaladas lo consultan cada 6 horas — nadie reinstala.
+
+Formato de cada aviso:
+
+```json
+{
+  "fecha": "2026-07-25",
+  "titulo": "Convención de líderes",
+  "detalle": "Lima · confirmar asistencia",
+  "avisarDiasAntes": 7
+}
+```
+
+- `avisarDiasAntes` (opcional, 3 por defecto): con cuánta anticipación se notifica
+  y se resalta el chip en naranja. Cada aviso notifica al entrar en su ventana y
+  el mismo día (9:00). Además la app avisa el **cierre de campaña** (3 días antes
+  y el viernes de cierre).
+- Sin conexión, la app usa la última copia descargada. Un JSON mal editado se
+  ignora (no rompe lo que la gente ve).
+- **Requisito:** el repo debe ser **público** para que las apps lean
+  `raw.githubusercontent.com/.../main/fechas.json` sin credenciales.
+- La primera vez, macOS pedirá permiso para notificar (Permitir).
+
 ## Cómo calcula las campañas
 
 El calendario Yanbal divide el año en **13 campañas de 4 semanas (sábado→viernes)**.

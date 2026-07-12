@@ -1,0 +1,28 @@
+{
+  "avisos": [
+    {
+      "fecha": "2026-07-14",
+      "titulo": "Pago Incorpora y Gana",
+      "detalle": "Se abona en la S1 de C8",
+      "avisarDiasAntes": 3
+    },
+    {
+      "fecha": "2026-07-17",
+      "titulo": "Cierre de facturación C7",
+      "detalle": "Último día para ingresar pedidos",
+      "avisarDiasAntes": 2
+    },
+    {
+      "fecha": "2026-07-25",
+      "titulo": "Convención de líderes",
+      "detalle": "Lima · confirmar asistencia",
+      "avisarDiasAntes": 7
+    },
+    {
+      "fecha": "2026-08-15",
+      "titulo": "Lanzamiento catálogo C9",
+      "detalle": "Nuevo catálogo disponible en Maya",
+      "avisarDiasAntes": 5
+    }
+  ]
+}

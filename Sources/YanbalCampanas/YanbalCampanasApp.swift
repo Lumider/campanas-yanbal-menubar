@@ -42,12 +42,13 @@ final class CalendarModel: ObservableObject {
 @main
 struct YanbalCampanasApp: App {
   @StateObject private var modelo = CalendarModel()
+  @StateObject private var avisos = AvisosModel()
 
   var body: some Scene {
     // La barra muestra el iso de Yanbal + la etiqueta compacta ("C7 · S3");
     // si la fecha cae fuera del calendario conocido, se muestra un guion.
     MenuBarExtra {
-      PanelView(snapshot: modelo.snapshot)
+      PanelView(snapshot: modelo.snapshot, avisos: avisos.avisos)
     } label: {
       BarraLabel(texto: modelo.snapshot?.etiquetaBarra ?? "C— · S—")
     }

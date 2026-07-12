@@ -2,9 +2,11 @@ import AppKit
 import CampaignKit
 import SwiftUI
 
-/// Popover de la barra de menú: campaña/semana actual, cierre y próximas campañas.
+/// Popover de la barra de menú: campaña/semana actual, cierre, fechas importantes
+/// (avisos remotos de fechas.json) y próximas campañas.
 struct PanelView: View {
   let snapshot: CampaignSnapshot?
+  var avisos: [Aviso] = []
 
   /// Naranja de marca Yanbal (#DC582A).
   private let brand = Color(red: 0xDC / 255, green: 0x58 / 255, blue: 0x2A / 255)
@@ -58,6 +60,21 @@ struct PanelView: View {
           .fontWeight(.medium)
       }
 
+      // Fechas importantes (avisos publicados en fechas.json vía GitHub).
+      if !avisos.isEmpty {
+        Divider()
+        VStack(alignment: .leading, spacing: 9) {
+          Text("Fechas importantes")
+            .font(.caption)
+            .fontWeight(.semibold)
+            .foregroundStyle(.secondary)
+            .textCase(.uppercase)
+          ForEach(avisos.prefix(4)) { aviso in
+            filaAviso(aviso)
+          }
+        }
+      }
+
       if !snap.proximas.isEmpty {
         Divider()
         VStack(alignment: .leading, spacing: 8) {
@@ -97,6 +114,43 @@ struct PanelView: View {
     }
     .padding(.horizontal, 16)
     .padding(.vertical, 10)
+  }
+
+  /// Fila de un aviso: chip con la fecha (naranja si ya entró en su ventana de
+  /// aviso), título con "en X días" y detalle opcional.
+  @ViewBuilder
+  private func filaAviso(_ aviso: Aviso) -> some View {
+    let dias = aviso.diasRestantes ?? 0
+    let pronto = dias <= aviso.ventana
+    HStack(alignment: .top, spacing: 9) {
+      Text(aviso.dia.map(CampaignCalendar.fechaCorta) ?? aviso.fecha)
+        .font(.caption2)
+        .fontWeight(.bold)
+        .padding(.horizontal, 6)
+        .padding(.vertical, 3)
+        .frame(minWidth: 52)
+        .background(pronto ? brand : Color.primary.opacity(0.08))
+        .foregroundStyle(pronto ? Color.white : .primary)
+        .clipShape(RoundedRectangle(cornerRadius: 6))
+      VStack(alignment: .leading, spacing: 1) {
+        (Text(aviso.titulo).fontWeight(.semibold)
+          + Text(" · \(textoEnDias(dias))").foregroundStyle(.secondary))
+          .font(.callout)
+        if let detalle = aviso.detalle, !detalle.isEmpty {
+          Text(detalle)
+            .font(.caption)
+            .foregroundStyle(.secondary)
+        }
+      }
+    }
+  }
+
+  private func textoEnDias(_ dias: Int) -> String {
+    switch dias {
+    case 0: return "hoy"
+    case 1: return "mañana"
+    default: return "en \(dias) días"
+    }
   }
 
   private func textoDias(_ dias: Int) -> String {
