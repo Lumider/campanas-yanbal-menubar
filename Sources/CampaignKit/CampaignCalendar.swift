@@ -83,7 +83,7 @@ public enum CampaignCalendar {
   }
 
   /// Días de calendario entre dos fechas (b − a), ignorando la hora.
-  static func diasEntre(_ a: Date, _ b: Date) -> Int {
+  public static func diasEntre(_ a: Date, _ b: Date) -> Int {
     let d1 = calendario.startOfDay(for: a)
     let d2 = calendario.startOfDay(for: b)
     return calendario.dateComponents([.day], from: d1, to: d2).day ?? 0

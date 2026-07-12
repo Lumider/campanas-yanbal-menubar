@@ -133,8 +133,10 @@ struct PanelView: View {
         .foregroundStyle(pronto ? Color.white : .primary)
         .clipShape(RoundedRectangle(cornerRadius: 6))
       VStack(alignment: .leading, spacing: 1) {
+        // foregroundColor (no foregroundStyle) sobre Text concatenado: la
+        // variante con estilo requiere macOS 14 y la app apunta a macOS 13.
         (Text(aviso.titulo).fontWeight(.semibold)
-          + Text(" · \(textoEnDias(dias))").foregroundStyle(.secondary))
+          + Text(" · \(textoEnDias(dias))").foregroundColor(.secondary))
           .font(.callout)
         if let detalle = aviso.detalle, !detalle.isEmpty {
           Text(detalle)
