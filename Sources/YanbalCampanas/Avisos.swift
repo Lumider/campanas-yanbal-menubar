@@ -95,6 +95,24 @@ final class AvisosModel: ObservableObject {
 /// en su ventana (`avisarDiasAntes`) y el mismo día; además se avisa el cierre
 /// de la campaña actual (3 días antes y el viernes de cierre).
 enum Notificador {
+  /// Dispara una notificación de ejemplo a los 3 segundos, para ver cómo se
+  /// verán los avisos (y de paso validar el permiso de notificaciones).
+  static func probar() {
+    guard Bundle.main.bundleIdentifier != nil else { return }
+    let centro = UNUserNotificationCenter.current()
+    centro.requestAuthorization(options: [.alert, .sound]) { autorizado, _ in
+      guard autorizado else { return }
+      let contenido = UNMutableNotificationContent()
+      contenido.title = "Cierre de facturación C7 — en 2 días"
+      contenido.body = "Así se verán los avisos del calendario 📣"
+      contenido.sound = .default
+      let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+      centro.add(
+        UNNotificationRequest(
+          identifier: "prueba-\(UUID().uuidString)", content: contenido, trigger: trigger))
+    }
+  }
+
   static func reprogramar(avisos: [Aviso]) {
     // Bajo `swift run` no hay bundle y UNUserNotificationCenter abortaría.
     guard Bundle.main.bundleIdentifier != nil else { return }

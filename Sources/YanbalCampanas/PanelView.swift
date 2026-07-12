@@ -101,11 +101,17 @@ struct PanelView: View {
   }
 
   private var pie: some View {
-    HStack {
+    HStack(spacing: 12) {
       Text("Calendario oficial Yanbal")
         .font(.caption2)
         .foregroundStyle(.tertiary)
       Spacer()
+      // Dispara una notificación de ejemplo (3 s): sirve para ver el diseño
+      // del aviso y validar que el permiso de notificaciones está concedido.
+      Button("Probar aviso") { Notificador.probar() }
+        .buttonStyle(.plain)
+        .font(.caption)
+        .foregroundStyle(.secondary)
       Button("Salir") { NSApplication.shared.terminate(nil) }
         .buttonStyle(.plain)
         .font(.caption)
